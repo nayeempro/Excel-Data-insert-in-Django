@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %} Upload {% endblock %}
+
+{% block content %} 
+<div class="flex items-center justify-center min-h-screen w-full">
+  <div class="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-md text-center">
+    <!-- 🏷️ Title -->
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+      📂 Upload Your Excel Files
+    </h2>
+
+    <!-- 🧾 Form -->
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+      {% csrf_token %}
+      
+      <!-- File Input -->
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">Select Excel File(s)</label>
+        <input 
+          type="file" 
+          name="excel_files" 
+          multiple 
+          required 
+          class="block w-full text-sm text-gray-700 border border-dashed border-indigo-400 rounded-lg cursor-pointer p-4 bg-indigo-50 hover:bg-indigo-100 transition duration-300 ease-in-out focus:outline-none"
+        >
+      </div>
+
+      <!-- Submit Button -->
+      <button 
+        type="submit"
+        class="w-full bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-semibold py-3 rounded-lg shadow-lg hover:scale-105 transition-transform duration-300"
+      >
+        Upload & Save
+      </button>
+    </form>
+
+    <!-- ✅ Success or ❌ Error Message -->
+    {% if success %}
+      <p class="text-green-600 font-medium mt-6">✅ Files merged and saved successfully!</p>
+      <p class="text-red-600 font-medium mt-6">Total {{duplicates}} data found in your excel file and removed</p>
+    {% elif error %}
+      <p class="text-red-600 font-medium mt-6">❌ {{ error }}</p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

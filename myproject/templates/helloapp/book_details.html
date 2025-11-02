@@ -1,0 +1,129 @@
+<!-- book_detail.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ book.title }} - Book Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            padding: 20px;
+            color: #4CAF50;
+        }
+
+        .book-detail-container {
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            margin: auto;
+        }
+
+        .book-detail-container img {
+            width: 40%;
+            height: auto;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .book-detail-container .info {
+            padding-left: 20px;
+        }
+
+        .book-detail-container .info h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .book-detail-container .info p {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .book-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .book-actions a {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .book-actions a:hover {
+            background-color: #45a049;
+        }
+
+        .back-btn {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-btn a {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .back-btn a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<h1>{{ book.title }} - Book Details</h1>
+
+<div class="book-detail-container">
+    <img src="{{ book.pic.url }}" alt="{{ book.title }}">
+
+    <div class="info">
+        <h2>{{ book.title }}</h2>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        <p><strong>Description:</strong> {{ book.description }}</p>
+        <p><strong>Published:</strong> {{ book.published_date }}</p>
+    </div>
+
+    <div>
+        <h1>Size of Book Related Info</h1>
+        <p>size of Book Title: {{size_title}} bytes </p>
+        <p>size of Book Author: {{size_author}} bytes </p>
+        <p>size of Book description: {{size_description}} bytes </p>
+        <p>size of Book Picture: {{size_pic_kb}} KB</p>
+    </div>
+
+    <div class="book-actions">
+        <!-- Edit Button -->
+        <a href="{% url 'book_edit' book.id %}">Edit</a>
+        <!-- Delete Button -->
+          <!-- Delete Button -->
+        <form action="{% url 'book_delete' book.id %}" method="POST" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" style="background-color: #f44336; color: white; padding: 10px 15px; border-radius: 4px;">Delete</button>
+        </form>
+    </div>
+</div>
+
+<div class="back-btn">
+    <a href="{% url 'book_list' %}">Back to Book List</a>
+</div>
+
+</body>
+</html>

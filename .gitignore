@@ -1,0 +1,5 @@
+vEnv/
+
+# Database files
+db.sqlite3
+credential.json

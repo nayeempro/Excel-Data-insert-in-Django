@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="w-full min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 py-10 px-6">
+
+  <!-- 📁 Upload Excel File Card -->
+  <div class="w-11/12 mx-auto bg-white rounded-2xl shadow-2xl p-8 border border-gray-100 mb-10 transition hover:shadow-blue-200">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+      📂 Upload Excel File
+    </h2>
+
+    <form method="POST" enctype="multipart/form-data" class="space-y-6">
+      {% csrf_token %}
+
+      <!-- File Input -->
+      <div>
+        <label class="block text-sm font-semibold text-gray-700 mb-2">Choose File</label>
+        <input type="file" name="uploaded_files" multiple required
+          class="block w-full text-gray-800 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 p-2.5 transition" />
+      </div>
+
+      <!-- Status Selection -->
+      <div class="flex items-center gap-6">
+        <span class="text-sm font-semibold text-gray-700">Status:</span>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="radio" name="status" value="draft" checked class="radio radio-info" />
+          <span class="text-gray-700">Draft</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="radio" name="status" value="published" class="radio radio-success" />
+          <span class="text-gray-700">Published</span>
+        </label>
+      </div>
+
+      <!-- Upload Button -->
+      <div class="pt-2">
+        <button type="submit"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg shadow-md hover:shadow-lg transition duration-200 ease-in-out transform hover:scale-105">
+          ⬆️ Upload
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="w-11/12 mx-auto bg-white rounded-2xl shadow-xl p-8 border border-gray-100 transition hover:shadow-green-100">
+          {% if messages %}
+            {% for message in messages %}
+              <p class="{% if message.tags == 'error' %}text-red-600{% else %}text-green-600{% endif %} font-medium mt-6">
+              {{ message }}
+              </p>
+            {% endfor %}
+          {% endif %}
+  </div>
+  <!-- 📊 Uploaded Draft Data Table -->
+  <div class="w-11/12 mx-auto bg-white rounded-2xl shadow-xl p-8 border border-gray-100 transition hover:shadow-green-100">
+    <h2 class="text-3xl font-semibold text-gray-800 mb-6 flex items-center gap-2">
+      🧾 Uploaded Draft Data
+    </h2>
+
+    <div class="overflow-x-auto">
+      <table class="table w-full border-collapse">
+        <thead class="bg-gradient-to-r from-blue-100 to-indigo-100 text-gray-800 text-sm uppercase font-semibold">
+          <tr>
+            <th class="py-3 px-4 text-left">ID</th>
+            <th class="py-3 px-4 text-left">Email</th>
+            <th class="py-3 px-4 text-left">Uploaded By</th>
+            <th class="py-3 px-4 text-left">Date</th>
+            <th class="py-3 px-4 text-left">Status</th>
+            <th class="py-3 px-4 text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+        {% if page_obj %}
+            {% for d in page_obj %}
+              <tr class="hover:bg-blue-50 transition">
+                <td class="py-3 px-4">{{d.id}}</td>
+                <td class="py-3 px-4 font-medium text-gray-700">{{d.email}}</td>
+                <td class="py-3 px-4 text-gray-600">NAYEEM</td>
+                <td class="py-3 px-4 text-gray-600">{{d.enrolled_at}}</td>
+                <td class="py-3 px-4">
+                  <span class="bg-gray-500 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">{{d.status}}</span>
+                </td>
+                <td class="py-3 px-2 flex justify-center items-center gap-2">
+                  <a href="{% url 'edit_stu_info' d.id %}" 
+                    class="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-3 py-1.5 rounded-md shadow-sm transition">
+                    ✏️ Edit
+                  </a>
+
+                  <a href="{% url 'delete_stu_info' d.id %}" 
+                    class="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1.5 rounded-md shadow-sm transition">
+                    🗑 Delete
+                  </a>
+
+                  <a href="{% url 'stu_info' d.id%}" 
+                    class="bg-sky-500 hover:bg-sky-600 text-white font-semibold px-3 py-1.5 rounded-md shadow-sm transition">
+                    👁 View
+                  </a>
+
+                  <a href="{% url 'confirm_stu_info' d.id %}" 
+                    class="bg-green-600 hover:bg-green-700 text-white font-semibold px-3 py-1.5 rounded-md shadow-sm transition">
+                    ✅ Confirm
+                  </a>
+                </td>
+
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="6" class="text-center text-gray-500 py-4">
+                  No data found 😢
+                </td>
+              </tr>
+            {% endfor %}
+        {% else %}
+          {% for d in data %}
+            <tr class="hover:bg-blue-50 transition">
+              <td class="py-3 px-4">{{ d.id }}</td>
+              <td class="py-3 px-4 font-medium text-gray-700">{{ d.email }}</td>
+              <td class="py-3 px-4 text-gray-600">NAYEEM</td>
+              <td class="py-3 px-4 text-gray-600">{{ d.enrolled_at }}</td>
+              <td class="py-3 px-4">
+                <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold">{{ d.status }}</span>
+              </td>
+              <td class="py-3 px-2 flex justify-center items-center gap-2">
+                <a href="{% url 'edit_stu_info' d.id %}" class="bg-yellow-400 hover:bg-yellow-500 text-white font-semibold px-3 py-1.5 rounded-md shadow-sm transition">✏️ Edit</a>
+                <a href="{% url 'delete_stu_info' d.id %}" class="bg-red-500 hover:bg-red-600 text-white font-semibold px-3 py-1.5 rounded-md shadow-sm transition">🗑 Delete</a>
+                <a href="{% url 'stu_info' d.id%}" class="bg-sky-500 hover:bg-sky-600 text-white font-semibold px-3 py-1.5 rounded-md shadow-sm transition">👁 View</a>
+                <a href="{% url 'confirm_stu_info' d.id %}" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-3 py-1.5 rounded-md shadow-sm transition">✅ Confirm</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="6" class="text-center text-gray-500 py-4">No data found 😢</td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+      {# -------------------- Pagination Controls -------------------- #}
+    {% if page_obj %}
+    <div class="mt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <!--   -->
+
+      <nav class="flex items-center gap-2" aria-label="Pagination">
+        {% if page_obj.has_previous %}
+          <a href="?page=1" class="px-3 py-1 rounded-md border bg-white hover:bg-gray-50">First</a>
+          <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-1 rounded-md border bg-white hover:bg-gray-50">Prev</a>
+        {% else %}
+          <span class="px-3 py-1 rounded-md border bg-gray-100 text-gray-400">First</span>
+          <span class="px-3 py-1 rounded-md border bg-gray-100 text-gray-400">Prev</span>
+        {% endif %}
+
+        {# numeric page links (simple) #}
+        {% for num in page_obj.paginator.page_range %}
+          {% if page_obj.number == num %}
+            <span class="px-3 py-1 rounded-md border bg-blue-600 text-white font-semibold">{{ num }}</span>
+          {% else %}
+            <a href="?page={{ num }}" class="px-3 py-1 rounded-md border bg-white hover:bg-gray-50">{{ num }}</a>
+          {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-1 rounded-md border bg-white hover:bg-gray-50">Next</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}" class="px-3 py-1 rounded-md border bg-white hover:bg-gray-50">Last</a>
+        {% else %}
+          <span class="px-3 py-1 rounded-md border bg-gray-100 text-gray-400">Next</span>
+          <span class="px-3 py-1 rounded-md border bg-gray-100 text-gray-400">Last</span>
+        {% endif %}
+      </nav>
+    </div>
+    {% endif %}
+    {# -------------------- End Pagination -------------------- #}
+
+  </div>
+
+</div>
+{% endblock content %}
+
+

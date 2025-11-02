@@ -1,0 +1,104 @@
+{% extends 'helloapp/base.html' %}
+{% load static %}
+{% block title %}
+    Table Page
+{% endblock %}
+
+{% block content %}
+
+    <div>
+            <h1 align="center">Customer List - 1 </h1>
+    {% if data1 %}
+        <table class="customer-table">
+            <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Age</th>
+                <th>City</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for customer in data1 %}
+                    <tr>
+                    <td>{{ customer.customer_id }}</td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.phone }}</td>
+                    <td>{{ customer.age }}</td>
+                    <td>{{ customer.city }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No Customer found</p>
+{% endif %}
+    </div>
+    <div>
+
+            <h1 align="center">Customer List - 2 </h1>
+    {% if data2 %}
+        <table>
+            <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Age</th>
+                <th>City</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for customer in data2 %}
+                    <tr>
+                    <td>{{ customer.customer_id }}</td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.phone }}</td>
+                    <td>{{ customer.age }}</td>
+                    <td>{{ customer.city }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No Customer found</p>
+    {% endif %}
+    </div>
+    <div>
+            <h1 align="center">Customer List - 3 </h1>
+    {% if data3 %}
+        <table>
+            <thead>
+            <tr>
+                <th>Customer ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Age</th>
+                <th>City</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for customer in data3 %}
+                    <tr>
+                    <td>{{ customer.customer_id }}</td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.email }}</td>
+                    <td>{{ customer.phone }}</td>
+                    <td>{{ customer.age }}</td>
+                    <td>{{ customer.city }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No Customer found</p>
+    {% endif %}
+    </div>
+
+{% endblock %}

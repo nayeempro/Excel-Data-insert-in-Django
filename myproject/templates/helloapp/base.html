@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}My Website{% endblock %}</title>
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            font-size: 16px;
+        }
+
+        /* Navbar */
+        nav {
+            background-color: #34495e;
+            padding: 1.5rem 0;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            background-color: #2c3e50;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(to bottom, #2980b9, #6dd5fa);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            background-color: #f39c12;
+            color: #fff;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+        }
+
+        .btn:hover {
+            background-color: #e67e22;
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 10%;
+            text-align: center;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        /* Blog Section */
+        .blog {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 4rem 10%;
+            background-color: #ecf0f1;
+        }
+
+        .blog-item {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .blog-item:hover {
+            transform: scale(1.05);
+        }
+
+        .blog-item h3 {
+            padding: 1rem;
+            font-size: 1.6rem;
+            background-color: #f39c12;
+            color: #fff;
+        }
+
+        .blog-item p {
+            padding: 0 1rem 1rem;
+            font-size: 1rem;
+            color: #555;
+        }
+
+        .blog-item a {
+            display: block;
+            padding: 0.8rem 1rem;
+            text-align: center;
+            background-color: #f39c12;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .blog-item a:hover {
+            background-color: #e67e22;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #34495e;
+            color: #fff;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        footer p {
+            font-size: 1rem;
+        }
+
+        footer a {
+            color: #f39c12;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <a href="/home">Home</a>
+        <a href="/about">About</a>
+        <a href="{% url 'test' %}">Test</a>
+        <a href="{% url 'create_book' %}"> Create BooK</a>
+    </nav>
+
+   
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Travel Vlog | <a href="https://instagram.com" target="_blank">Instagram</a> | <a href="https://youtube.com" target="_blank">YouTube</a></p>
+    </footer>
+
+</body>
+</html>

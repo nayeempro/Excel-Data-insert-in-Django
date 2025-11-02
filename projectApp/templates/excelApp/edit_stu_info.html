@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}Edit Course{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen bg-gray-50">
+  <div class="w-full max-w-3xl bg-white rounded-2xl shadow-xl overflow-hidden">
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white p-6">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        📝 Edit Enrolled Student Info
+      </h2>
+      <p class="text-sm opacity-80">Update your course information below</p>
+    </div>
+
+    <!-- Form -->
+    <form method="POST" class="p-8 space-y-6">
+      {% csrf_token %}
+
+      <!-- 2 inputs per row -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label class="font-semibold text-gray-700 block mb-1">Name</label>
+          <input type="text" name="name" value="{{ studentInfo.name }}"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="font-semibold text-gray-700 block mb-1">Email</label>
+          <input type="email" name="email" value="{{ studentInfo.email }}"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="font-semibold text-gray-700 block mb-1">Course Name</label>
+          <input type="text" name="course_name" value="{{ studentInfo.course_name }}"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="font-semibold text-gray-700 block mb-1">Price</label>
+          <input type="number" name="price" step="0.01" value="{{ studentInfo.price }}"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="font-semibold text-gray-700 block mb-1">City</label>
+          <input type="text" name="city" value="{{ studentInfo.city }}"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="font-semibold text-gray-700 block mb-1">Status</label>
+          <select name="status"
+            class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+            <option value="draft" {% if studentInfo.status == 'draft' %}selected{% endif %}>Draft</option>
+            <option value="published" {% if studentInfo.status == 'published' %}selected{% endif %}>Published</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="flex justify-between pt-6">
+        <a href="/" class="bg-gray-300 hover:bg-gray-400 text-gray-800 px-5 py-2 rounded-lg transition">
+          ⬅️ Cancel
+        </a>
+        <button type="submit"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow-md transition">
+          💾 Save Changes
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

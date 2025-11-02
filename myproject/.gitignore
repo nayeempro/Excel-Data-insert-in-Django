@@ -1,0 +1,4 @@
+vEnv/
+
+# Database files
+db.sqlite3
